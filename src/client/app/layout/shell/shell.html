@@ -1,0 +1,17 @@
+<app-menu navline="vm.navline"></app-menu>
+
+<section id="cont" class="content">
+
+    <!-- Main View -->
+    <div ui-view class="shuffle-animation"></div>
+
+    <!-- Loading indicator -->
+    <div ngplus-overlay ngplus-overlay-delay-in="50" ngplus-overlay-delay-out="700" ngplus-overlay-animation="dissolve-animation">
+        <img src="images/busy.gif" />
+
+        <div class="page-spinner-message overlay-message">{{vm.busyMessage}}</div>
+    </div>
+
+</section>
+
+<app-footer></app-footer>
