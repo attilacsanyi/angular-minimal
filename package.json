@@ -23,7 +23,7 @@
     "debug": "v2.0.0",
     "del": "v1.2.0",
     "glob": "v4.5.3",
-    "gulp": "v3.8.10",
+    "gulp": "v3.9.0",
     "gulp-angular-templatecache": "v1.4.2",
     "gulp-autoprefixer": "v2.3.1",
     "gulp-bump": "v0.3.1",
