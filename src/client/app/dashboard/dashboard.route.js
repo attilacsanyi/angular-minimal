@@ -1,11 +1,10 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('app.dashboard')
     .run(appRun);
 
-  appRun.$inject = ['routerHelper'];
   /* @ngInject */
   function appRun(routerHelper) {
     routerHelper.configureStates(getStates());
@@ -17,9 +16,7 @@
         state: 'dashboard',
         config: {
           url: '/',
-          templateUrl: 'app/dashboard/dashboard.html',
-          controller: 'DashboardController',
-          controllerAs: 'vm',
+          template: '<app-dashboard></app-dashboard>',
           title: 'dashboard',
           settings: {
             nav: 1,
