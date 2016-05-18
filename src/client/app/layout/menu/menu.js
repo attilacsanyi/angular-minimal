@@ -20,11 +20,11 @@
     vm.isCollapsed = true;
 
     // Methods
-    vm.$onInit = init;
+    vm.$onInit = ngOnInit;
 
     /////////////////////
 
-    function init() {
+    function ngOnInit() {
 
     }
   }

@@ -10,24 +10,23 @@
     });
 
   /* @ngInject */
-  function DashboardController($q, dataservice, logger) {
+  function DashboardController(dataservice, logger) {
     var vm = this;
 
     // APIs
     vm.people = [];
 
     // Methods
-    vm.$onInit = init;
+    vm.$onInit = ngOnInit;
 
     /////////////////////
 
     /**
      * Initialisation.
      */
-    function init() {
-      var promises = [getPeople()];
-      return $q.all(promises).then(function () {
-        logger.info('Activated Dashboard View');
+    function ngOnInit() {
+      getPeople().then(function () {
+        logger.debug('Activated Dashboard');
       });
     }
 
