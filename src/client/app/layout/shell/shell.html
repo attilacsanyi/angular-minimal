@@ -3,7 +3,9 @@
 <section id="cont" class="content">
 
     <!-- Main View -->
-    <div ui-view class="shuffle-animation"></div>
+    <div view class="shuffle-animation">
+        <ng-outlet></ng-outlet>
+    </div>
 
     <!-- Loading indicator -->
     <div ngplus-overlay ngplus-overlay-delay-in="50" ngplus-overlay-delay-out="700" ngplus-overlay-animation="dissolve-animation">

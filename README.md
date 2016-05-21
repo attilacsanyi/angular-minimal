@@ -79,7 +79,7 @@ app --> [
 		app.core --> [
 			ngAnimate,
 			ngSanitize,
-			ui.router,
+			ngComponentRouter,
 			blocks.exception,
 			blocks.logger,
 			blocks.router

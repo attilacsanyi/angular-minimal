@@ -6,15 +6,19 @@
     .component('appDashboard', {
       controller: DashboardController,
       controllerAs: 'vm',
-      templateUrl: 'app/dashboard/dashboard.html'
+      templateUrl: 'app/dashboard/dashboard.html',
+      $routeConfig: [
+        { path: '/', name: 'DashboardHome', component: 'appDashboardHome', useAsDefault: true },
+        { path: '/:name', name: 'DashboardDetail', component: 'appDashboardDetail' }
+      ]
     });
 
   /* @ngInject */
-  function DashboardController(dataservice, logger) {
+  function DashboardController(logger) {
     var vm = this;
 
     // APIs
-    vm.people = [];
+    vm.title = '';
 
     // Methods
     vm.$onInit = ngOnInit;
@@ -25,20 +29,9 @@
      * Initialisation.
      */
     function ngOnInit() {
-      getPeople().then(function () {
-        logger.debug('Activated Dashboard');
-      });
+      vm.title = 'Dashboard';
+      logger.debug('Dashboard - ngOnInit');
     }
 
-    /**
-     * Get people
-     */
-    function getPeople() {
-      return dataservice.getPeople().then(function (data) {
-        vm.people = data;
-        return vm.people;
-      });
-    }
   }
 })();
-

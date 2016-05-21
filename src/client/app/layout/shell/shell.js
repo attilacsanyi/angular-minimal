@@ -6,7 +6,12 @@
     .component('appShell', {
       controller: ShellController,
       controllerAs: 'vm',
-      templateUrl: 'app/layout/shell/shell.html'
+      templateUrl: 'app/layout/shell/shell.html',
+      $routeConfig: [
+        { path: '/...', name: 'Dashboard', component: 'appDashboard', useAsDefault: true },
+        { path: '/', redirectTo: ['Dashboard'] },
+        { path: '/**', name: '404', component: 'page404' }
+      ]
     });
 
   /* @ngInject */
@@ -18,7 +23,7 @@
     // APIs
     vm.navline = {
       title: config.appTitle,
-      text: 'Created by John Papa',
+      text: 'Created by John Papa1',
       link: 'http://twitter.com/john_papa'
     };
 

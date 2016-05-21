@@ -1,19 +1,20 @@
 /* jshint -W117 */
-describe('Dashboard component: ', function () {
+describe('DashboardDetail component: ', function () {
   var controller;
 
   beforeEach(function () {
     bard.appModule('app.dashboard');
     bard.inject('$rootScope', '$componentController');
 
-    controller = $componentController('appDashboard', {
+    controller = $componentController('appDashboardDetail', {
       $scope: $rootScope.$new()
     });
 
   });
 
   it('should have properties', function () {
-    expect(controller).to.have.property('title');
+    expect(controller).to.have.property('person');
   });
 
 });
+
