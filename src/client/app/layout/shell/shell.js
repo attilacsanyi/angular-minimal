@@ -15,17 +15,13 @@
     });
 
   /* @ngInject */
-  function ShellController($rootScope, $timeout, config) {
+  function ShellController($rootScope, $timeout) {
     var vm = this;
 
     $rootScope.showSplash = true;
 
     // APIs
-    vm.navline = {
-      title: config.appTitle,
-      text: 'Created by John Papa1',
-      link: 'http://twitter.com/john_papa'
-    };
+
 
     // Methods
     vm.$onInit = ngOnInit;
