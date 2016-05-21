@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function () {
   var client = './src/client/';
   var server = './src/server/';
   var clientApp = client + 'app/';
@@ -128,7 +128,7 @@ module.exports = function() {
   /**
    * wiredep and bower settings
    */
-  config.getWiredepDefaultOptions = function() {
+  config.getWiredepDefaultOptions = function () {
     var options = {
       bowerJson: config.bower.json,
       directory: config.bower.directory,
