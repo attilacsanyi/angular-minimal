@@ -260,44 +260,40 @@ gulp.task('clean', function (done) {
 });
 
 /**
- * Remove all fonts from the build folder
- * @param  {Function} done - callback when complete
+ * Remove all assets from the build folder
  */
-gulp.task('clean-fonts', function (done) {
-  clean(config.build + 'fonts/**/*.*', done);
+gulp.task('clean-assets', function () {
+  return clean([
+    config.buildAssets + 'fonts/**/*.*',
+  ]);
 });
 
 /**
  * Remove all images from the build folder
- * @param  {Function} done - callback when complete
  */
-gulp.task('clean-images', function (done) {
-  clean(config.build + 'images/**/*.*', done);
+gulp.task('clean-images', function () {
+  return clean(config.build + 'images/**/*.*');
 });
 
 /**
  * Remove all styles from the build and temp folders
- * @param  {Function} done - callback when complete
  */
-gulp.task('clean-styles', function (done) {
-  var files = [].concat(
-    config.temp + '**/*.css',
-    config.build + 'styles/**/*.css'
-  );
-  clean(files, done);
+gulp.task('clean-styles', function () {
+  return clean([
+    config.css, config.maps,
+    config.build + 'styles/**/*.css', config.build + 'styles/**/*.map'
+  ]);
 });
 
 /**
  * Remove all js and html from the build and temp folders
- * @param  {Function} done - callback when complete
  */
 gulp.task('clean-code', function (done) {
-  var files = [].concat(
+  return clean([
     config.temp + '**/*.js',
     config.build + 'js/**/*.js',
     config.build + '**/*.html'
-  );
-  clean(files, done);
+  ]);
 });
 
 /**
@@ -386,11 +382,10 @@ function changeEvent(event) {
 /**
  * Delete all files in a given path
  * @param  {Array}   path - array of paths to delete
- * @param  {Function} done - callback when complete
  */
-function clean(path, done) {
+function clean(path) {
   log('Cleaning: ' + $.util.colors.blue(path));
-  del(path, done);
+  return del(path);
 }
 
 /**
