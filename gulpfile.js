@@ -56,31 +56,40 @@ gulp.task('plato', function (done) {
 });
 
 /**
- * Compile less to css
+ * Compile sass to css
  * @return {Stream}
  */
-gulp.task('styles', ['clean-styles'], function() {
-  log('Compiling Less --> CSS');
+gulp.task('styles', ['clean-styles'], function () {
+  log('Compiling Sass --> CSS');
 
   return gulp
-    .src(config.less)
-    .pipe($.plumber()) // exit gracefully if something fails after this
-    .pipe($.less())
-    //        .on('error', errorLogger) // more verbose and dupe output. requires emit.
-    .pipe($.autoprefixer({ browsers: ['last 2 version', '> 5%'] }))
+    .src(config.sass.mainStyle)
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      //sourceMap: true,
+      //outFile: './tmp/maps/styles1.map',
+      //sourceMapContents: true,
+      //sourceComments: true,
+      //sourceMapEmbed: true,
+      //sourceMapRoot: '../tmp',
+      outputStyle: 'expanded',
+      includePaths: config.sass.includes,
+      errLogToConsole: true
+    }))
+    .pipe($.autoprefixer({
+      //browsers: ['last 2 version', '> 5%']
+    }))
+    .pipe($.sourcemaps.write('./maps'))
     .pipe(gulp.dest(config.temp));
 });
 
 /**
- * Copy fonts
+ * Copy assets
  * @return {Stream}
  */
-gulp.task('fonts', ['clean-fonts'], function () {
-  log('Copying fonts');
-
-  return gulp
-    .src(config.fonts)
-    .pipe(gulp.dest(config.build + 'fonts'));
+gulp.task('assets', ['clean-assets'], function () {
+  copyFonts(config.buildAssets + 'fonts');
 });
 
 /**
@@ -96,8 +105,14 @@ gulp.task('images', ['clean-images'], function () {
     .pipe(gulp.dest(config.build + 'images'));
 });
 
-gulp.task('less-watcher', function () {
-  gulp.watch([config.less], ['styles']);
+/**
+ * Watch sass files for changes
+ */
+gulp.task('sass-watcher', function () {
+  log('Watch sass styles for changes');
+
+  gulp.watch([config.sass.styles], ['styles'])
+    .on('change', changeEvent);
 });
 
 /**
@@ -152,7 +167,7 @@ gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
  * Run the spec runner
  * @return {Stream}
  */
-gulp.task('serve-specs', ['build-specs'], function (done) {
+gulp.task('serve-specs', ['assets-dev', 'build-specs'], function (done) {
   log('run the spec runner');
   serve(true /* isDev */, true /* specRunner */);
   done();
@@ -191,7 +206,7 @@ gulp.task('build-specs', ['templatecache'], function (done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts'], function () {
+gulp.task('build', ['optimize', 'images', 'assets'], function () {
   log('Building everything');
 
   var msg = {
@@ -321,7 +336,7 @@ gulp.task('autotest', function (done) {
  * --debug-brk or --debug
  * --nosync
  */
-gulp.task('serve-dev', ['inject'], function () {
+gulp.task('serve-dev', ['assets-dev', 'inject'], function () {
   serve(true /*isDev*/);
 });
 
@@ -368,7 +383,39 @@ gulp.task('bump', function () {
  */
 gulp.task('browserSyncReload', ['optimize'], browserSync.reload);
 
+/**
+ * Copy assets to dev
+ * @return {Stream}
+ */
+gulp.task('assets-dev', ['clean-assets-dev'], function () {
+  log('Copy dev assets');
+  copyFonts(config.assets + 'fonts');
+});
+
+/**
+ * Remove all assets from the dev folder
+ */
+gulp.task('clean-assets-dev', function () {
+  return clean([
+    config.assets + 'fonts/**/*.*',
+  ]);
+});
 ////////////////
+
+/**
+ * Copy fonts from bower components to a temporary dev directory used by sass includes
+ * @return {Stream}
+ */
+// used by sass includes for font-awesome and glyphicons
+// also prevents this two includes below:
+// $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+// $fa-font-path: "../bower_components/font-awesome/fonts";
+function copyFonts(destination) {
+  log('Copying fonts to ' + destination);
+  return gulp
+    .src(config.fonts)
+    .pipe(gulp.dest(destination));
+}
 
 /**
  * When files change, log it
@@ -486,12 +533,12 @@ function startBrowserSync(isDev, specRunner) {
   log('Starting BrowserSync on port ' + port);
 
   // If build: watches the files, builds, and restarts browser-sync.
-  // If dev: watches less, compiles it to css, browser-sync handles reload
+  // If dev: watches sass, compiles it to css, browser-sync handles reload
   if (isDev) {
-    gulp.watch([config.less], ['styles'])
+    gulp.watch([config.sass.styles], ['styles'])
       .on('change', changeEvent);
   } else {
-    gulp.watch([config.less, config.js, config.html], ['browserSyncReload'])
+    gulp.watch([config.sass.styles, config.js, config.html], ['browserSyncReload'])
       .on('change', changeEvent);
   }
 
@@ -500,7 +547,7 @@ function startBrowserSync(isDev, specRunner) {
     port: 3000,
     files: isDev ? [
       config.client + '**/*.*',
-      '!' + config.less,
+      '!' + config.sass.styles,
       config.temp + '**/*.css'
     ] : [],
     ghostMode: { // these are the defaults t,f,t,t
@@ -512,9 +559,17 @@ function startBrowserSync(isDev, specRunner) {
     injectChanges: true,
     logFileChanges: true,
     logLevel: 'info',
-    logPrefix: 'hottowel',
+    logPrefix: 'app',
+    reloadDelay: config.browserReloadDelay, //1000
+
+    // Don't show any notifications in the browser.
     notify: true,
-    reloadDelay: 0 //1000
+
+    // Open the site in Chrome & Firefox
+    browser: [/*'google chrome', */'firefox'],
+
+    // Stop the browser from automatically opening
+    open: true
   };
   if (specRunner) {
     options.startPath = config.specRunnerFile;

@@ -1,19 +1,15 @@
 <app-menu></app-menu>
 
-<section id="cont" class="content">
+<ng-outlet></ng-outlet>
 
-    <!-- Main View -->
-    <div view class="shuffle-animation">
-        <ng-outlet></ng-outlet>
+<!-- Loading indicator -->
+<div ngplus-overlay ngplus-overlay-delay-in="50" ngplus-overlay-delay-out="700" ngplus-overlay-animation="fader-animation">
+    <div class="page-spinner-message overlay-message">{{vm.busyMessage}}</div>
+    <div id="page-loading">
+        <div id="page-loading-block1" class="page-loading-block"></div>
+        <div id="page-loading-block2" class="page-loading-block"></div>
+        <div id="page-loading-block3" class="page-loading-block"></div>
     </div>
-
-    <!-- Loading indicator -->
-    <div ngplus-overlay ngplus-overlay-delay-in="50" ngplus-overlay-delay-out="700" ngplus-overlay-animation="dissolve-animation">
-        <img src="images/busy.gif" />
-
-        <div class="page-spinner-message overlay-message">{{vm.busyMessage}}</div>
-    </div>
-
-</section>
+</div>
 
 <app-footer></app-footer>

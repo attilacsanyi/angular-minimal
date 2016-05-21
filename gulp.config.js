@@ -6,6 +6,9 @@ module.exports = function () {
   var root = './';
   var specRunnerFile = 'specs.html';
   var temp = './.tmp/';
+
+  var assets = 'assets/';
+
   var wiredep = require('wiredep');
   var bowerFiles = wiredep({ devDependencies: true })['js'];
   var bower = {
@@ -24,10 +27,21 @@ module.exports = function () {
       './src/**/*.js',
       './*.js'
     ],
+
     build: './build/',
+    buildAssets: './build/' + assets,
     client: client,
-    css: temp + 'styles.css',
-    fonts: bower.directory + 'font-awesome/fonts/**/*.*',
+
+    // temp content
+    temp: temp,
+    assets: assets,
+    css: temp + '**/*.css',
+    maps: temp + 'maps/**/*.map',
+
+    fonts: [
+      bower.directory + 'bootstrap-sass/assets/fonts/**/*.*',
+      bower.directory + 'font-awesome/fonts/**/*.*'
+    ],
     html: client + '**/*.html',
     htmltemplates: clientApp + '**/*.html',
     images: client + 'images/**/*.*',
@@ -43,7 +57,14 @@ module.exports = function () {
       '**/*.module.js',
       '**/*.js'
     ],
-    less: client + 'styles/styles.less',
+    sass: {
+      mainStyle: client + 'styles/styles.scss',
+      styles: client + 'styles/**/*.scss',
+      includes: [
+        bower.directory + 'bootstrap-sass/assets/stylesheets',
+        bower.directory + 'font-awesome/scss'
+      ]
+    },
     report: report,
     root: root,
     server: server,
@@ -52,7 +73,6 @@ module.exports = function () {
       bower.directory + 'angular-mocks/angular-mocks.js',
       client + 'stubs/**/*.js'
     ],
-    temp: temp,
 
     /**
      * optimized files

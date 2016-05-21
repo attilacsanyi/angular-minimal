@@ -22,7 +22,7 @@
     "angular-bootstrap": "v1.2.5",
     "angular-component-router": "v0.2.1",
     "angular-sanitize": "v1.5.5",
-    "bootstrap": "v3.3.6",
+    "bootstrap-sass": "v3.3.6",
     "extras.angular.plus": "v0.9.2",
     "font-awesome": "v4.5.0",
     "jquery": "v2.2.2",
@@ -31,13 +31,5 @@
   },
   "resolutions": {
     "angular": "v1.5.5"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
   }
 }

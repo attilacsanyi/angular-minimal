@@ -49,15 +49,15 @@
   <!-- bower:js -->
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
-  <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="/bower_components/extras.angular.plus/ngplus-overlay.js"></script>
-  <script src="/bower_components/moment/moment.js"></script>
-  <script src="/bower_components/toastr/toastr.js"></script>
   <script src="/bower_components/angular-animate/angular-animate.js"></script>
   <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="/bower_components/angular-component-router/angular_1_router.js"></script>
   <script src="/bower_components/angular-component-router/ng_route_shim.js"></script>
+  <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+  <script src="/bower_components/extras.angular.plus/ngplus-overlay.js"></script>
+  <script src="/bower_components/moment/moment.js"></script>
+  <script src="/bower_components/toastr/toastr.js"></script>
   <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
   <script src="/bower_components/sinon/index.js"></script>
   <script src="/bower_components/bardjs/dist/bard.js"></script>
@@ -74,10 +74,11 @@
   <script src="/src/client/app/layout/layout.module.js"></script>
   <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
   <script src="/src/client/app/blocks/exception/exception.js"></script>
+  <script src="/src/client/app/blocks/logger/logger.config.js"></script>
   <script src="/src/client/app/blocks/logger/logger.js"></script>
   <script src="/src/client/app/blocks/router/router.config.js"></script>
-  <script src="/src/client/app/core/config.js"></script>
-  <script src="/src/client/app/core/constants.js"></script>
+  <script src="/src/client/app/core/core.config.js"></script>
+  <script src="/src/client/app/core/core.constants.js"></script>
   <script src="/src/client/app/core/dataservice.js"></script>
   <script src="/src/client/app/dashboard/dashboard.controller.js"></script>
   <script src="/src/client/app/dashboard/detail/dashboard-detail.controller.js"></script>
@@ -94,6 +95,7 @@
 
   <!-- inject:specs:js -->
   <script src="/src/client/app/blocks/exception/exception-handler.provider.spec.js"></script>
+  <script src="/src/client/app/blocks/logger/logger.spec.js"></script>
   <script src="/src/client/app/dashboard/dashboard.controller.spec.js"></script>
   <script src="/src/client/app/dashboard/detail/dashboard-detail.controller.spec.js"></script>
   <script src="/src/client/app/dashboard/home/dashboard-home.controller.spec.js"></script>
