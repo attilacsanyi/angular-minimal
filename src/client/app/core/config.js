@@ -3,15 +3,6 @@
 
   var core = angular.module('app.core');
 
-  core.config(toastrConfig);
-
-  toastrConfig.$inject = ['toastr'];
-  /* @ngInject */
-  function toastrConfig(toastr) {
-    toastr.options.timeOut = 4000;
-    toastr.options.positionClass = 'toast-bottom-right';
-  }
-
   var config = {
     appErrorPrefix: '[angularMinimal Error] ',
     appTitle: 'angularMinimal'
@@ -22,10 +13,7 @@
   core.config(configure);
 
   /* @ngInject */
-  function configure($logProvider, exceptionHandlerProvider) {
-    if ($logProvider.debugEnabled) {
-      $logProvider.debugEnabled(true);
-    }
+  function configure(exceptionHandlerProvider) {
     exceptionHandlerProvider.configure(config.appErrorPrefix);
   }
 

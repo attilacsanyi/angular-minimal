@@ -20,9 +20,6 @@
 
     $rootScope.showSplash = true;
 
-    // APIs
-
-
     // Methods
     vm.$onInit = ngOnInit;
 

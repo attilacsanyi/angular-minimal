@@ -30,7 +30,7 @@
      */
     function ngOnInit() {
       getPeople().then(function () {
-        logger.debug('DashboardHome - ngOnInit');
+        logger.success('DashboardHome - ngOnInit');
       });
     }
 
